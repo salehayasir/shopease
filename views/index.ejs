@@ -1,0 +1,97 @@
+<% title = 'Home' %>
+<%- include('partials/header') %>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-tag">New Collection 2024</p>
+    <h1 class="hero-title">Discover Products<br>You'll <em>Love</em></h1>
+    <p class="hero-sub">Curated essentials for modern living — from tech gadgets to lifestyle goods, all in one place.</p>
+    <div class="hero-buttons">
+      <a href="/products" class="btn-primary btn-lg">Shop Now</a>
+      <a href="/products?category=Electronics" class="btn-outline btn-lg">Browse Electronics</a>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-card">
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Featured product">
+      <div class="hero-card-badge">Best Seller</div>
+    </div>
+  </div>
+</section>
+
+<!-- Categories strip -->
+<section class="categories-strip">
+  <div class="container">
+    <a href="/products?category=Electronics" class="cat-pill">⚡ Electronics</a>
+    <a href="/products?category=Sports" class="cat-pill">🏃 Sports</a>
+    <a href="/products?category=Home" class="cat-pill">🏠 Home</a>
+    <a href="/products?category=Accessories" class="cat-pill">👜 Accessories</a>
+    <a href="/products?category=Kitchen" class="cat-pill">☕ Kitchen</a>
+    <a href="/products?category=Outdoors" class="cat-pill">🌿 Outdoors</a>
+  </div>
+</section>
+
+<!-- Featured Products -->
+<section class="featured-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Products</h2>
+      <a href="/products" class="see-all">See all →</a>
+    </div>
+    <div class="product-grid">
+      <% featured.forEach(product => { %>
+        <div class="product-card">
+          <a href="/products/<%= product.slug %>">
+            <div class="product-img-wrap">
+              <img src="<%= product.image %>" alt="<%= product.name %>" loading="lazy">
+            </div>
+          </a>
+          <div class="product-info">
+            <span class="product-category"><%= product.category %></span>
+            <h3><a href="/products/<%= product.slug %>"><%= product.name %></a></h3>
+            <div class="product-meta">
+              <span class="product-price">$<%= product.price.toFixed(2) %></span>
+              <span class="product-rating">★ <%= product.rating %></span>
+            </div>
+            <form action="/cart/add" method="POST">
+              <input type="hidden" name="productId" value="<%= product._id %>">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="btn-add-cart">Add to Cart</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- Value props -->
+<section class="value-props">
+  <div class="container">
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="value-icon">🚚</div>
+        <h4>Free Shipping</h4>
+        <p>On all orders over $50</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">↩️</div>
+        <h4>Easy Returns</h4>
+        <p>30-day hassle-free returns</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">🔒</div>
+        <h4>Secure Payment</h4>
+        <p>Your data is always safe</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon">💬</div>
+        <h4>24/7 Support</h4>
+        <p>We're here when you need us</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

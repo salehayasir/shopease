@@ -1,0 +1,28 @@
+{
+  "name": "shopease",
+  "version": "1.0.0",
+  "description": "A simple ecommerce store for DevOps course",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-mongo": "^5.0.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^5.0.1",
+    "express": "^4.22.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^7.0.1",
+    "mongodb": "^7.1.0",
+    "mongoose": "^7.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

@@ -1,0 +1,85 @@
+<% title = product.name %>
+<%- include('../partials/header') %>
+
+<div class="container product-show">
+  <div class="breadcrumb">
+    <a href="/">Home</a> / <a href="/products">Shop</a> / <a href="/products?category=<%= product.category %>"><%= product.category %></a> / <%= product.name %>
+  </div>
+
+  <div class="product-detail">
+    <div class="product-gallery">
+      <img src="<%= product.image %>" alt="<%= product.name %>" class="product-main-img">
+    </div>
+
+    <div class="product-detail-info">
+      <span class="product-category"><%= product.category %></span>
+      <h1><%= product.name %></h1>
+      
+      <div class="product-rating-row">
+        <span class="stars">
+          <% for(let i = 1; i <= 5; i++) { %>
+            <span style="color: <%= i <= Math.round(product.rating) ? '#f59e0b' : '#d1d5db' %>">★</span>
+          <% } %>
+        </span>
+        <span class="rating-num"><%= product.rating %></span>
+        <span class="review-count">(<%= product.reviews %> reviews)</span>
+      </div>
+
+      <p class="product-detail-price">$<%= product.price.toFixed(2) %></p>
+
+      <p class="product-detail-desc"><%= product.description %></p>
+
+      <div class="product-stock">
+        <span class="<%= product.stock > 10 ? 'in-stock' : 'low-stock' %>">
+          <%= product.stock > 10 ? '✓ In Stock' : `⚠ Only ${product.stock} left` %>
+        </span>
+      </div>
+
+      <form action="/cart/add" method="POST" class="add-to-cart-form">
+        <input type="hidden" name="productId" value="<%= product._id %>">
+        <div class="quantity-row">
+          <label>Quantity</label>
+          <input type="number" name="quantity" value="1" min="1" max="<%= product.stock %>" class="qty-input">
+        </div>
+        <button type="submit" class="btn-primary btn-lg btn-block">
+          🛒 Add to Cart
+        </button>
+      </form>
+
+      <% if (!user) { %>
+        <p class="login-hint"><a href="/auth/login">Login</a> to add items to your cart.</p>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<!-- Related products -->
+<% if (related.length > 0) { %>
+<section class="related-section">
+  <div class="container">
+    <h2>You might also like</h2>
+    <div class="product-grid">
+      <% related.forEach(p => { %>
+        <div class="product-card">
+          <a href="/products/<%= p.slug %>">
+            <div class="product-img-wrap">
+              <img src="<%= p.image %>" alt="<%= p.name %>" loading="lazy">
+            </div>
+          </a>
+          <div class="product-info">
+            <span class="product-category"><%= p.category %></span>
+            <h3><a href="/products/<%= p.slug %>"><%= p.name %></a></h3>
+            <div class="product-meta">
+              <span class="product-price">$<%= p.price.toFixed(2) %></span>
+              <span class="product-rating">★ <%= p.rating %></span>
+            </div>
+            <a href="/products/<%= p.slug %>" class="btn-add-cart">View Product</a>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<%- include('../partials/footer') %>
