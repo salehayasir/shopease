@@ -256,3 +256,4 @@ This means:
 
 **Session not working in production**
 → Make sure SESSION_SECRET is set in `eb setenv`
+# CI test
