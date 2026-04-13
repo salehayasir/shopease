@@ -15,13 +15,13 @@ pipeline {
 
         stage('Build - Docker Compose') {
             steps {
-                sh 'docker compose -f docker-compose.ci.yml build'
+                sh 'docker-compose -f docker-compose.ci.yml build'
             }
         }
 
         stage('Run Application') {
             steps {
-                sh 'docker compose -f docker-compose.ci.yml up -d'
+                sh 'docker-compose -f docker-compose.ci.yml up -d'
             }
         }
 
@@ -34,7 +34,7 @@ pipeline {
 
     post {
         failure {
-            sh 'docker compose -f docker-compose.ci.yml down'
+            sh 'docker-compose -f docker-compose.ci.yml down'
             echo 'Pipeline failed. Containers stopped.'
         }
     }
