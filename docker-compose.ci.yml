@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  app-ci:
+    image: node:18
+    container_name: shopease-app-ci
+    working_dir: /app
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm start"
+    ports:
+      - "3001:3000"
+    environment:
+      - NODE_ENV=production
+      - MONGO_URI=mongodb://mongo-ci:27017/shopease
+    depends_on:
+      - mongo-ci
+    networks:
+      - shopease-ci-net
+
+  mongo-ci:
+    image: mongo:6
+    container_name: shopease-mongo-ci
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo-ci-data:/data/db
+    networks:
+      - shopease-ci-net
+
+volumes:
+  mongo-ci-data:
+
+networks:
+  shopease-ci-net:
+    driver: bridge
