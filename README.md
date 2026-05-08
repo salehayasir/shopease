@@ -258,3 +258,4 @@ This means:
 → Make sure SESSION_SECRET is set in `eb setenv`
 # CI test
 # CI test
+# test trigger
